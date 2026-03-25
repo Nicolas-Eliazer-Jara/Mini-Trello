@@ -1,51 +1,78 @@
-"use client"
-import { useForm } from "react-hook-form"
-import {Input} from "./Input"
-import { Button } from "./Button"
-import {loginSchema , registerSchema} from "../features/auth/schemas"
-import { zodResolver } from "@hookform/resolvers/zod"
+"use client";
 
-type FormValues = {
-  email: string
-  password: string
-}
+import { useForm } from "react-hook-form";
+import { Input } from "./Input";
+import { Button } from "./Button";
+import { loginSchema, registerSchema } from "../features/auth/schemas";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
-  type: "login" | "register"
-}
+  type: "login" | "register";
+};
+
+type LoginValues = z.infer<typeof loginSchema>;
+type RegisterValues = z.infer<typeof registerSchema>;
+
+type FormValues = Partial<RegisterValues> & LoginValues;
 
 export const AuthForm = ({ type }: Props) => {
-    const schema = type === "login" ? loginSchema : registerSchema;
-    const {register , handleSubmit , formState:{errors}} = useForm<FormValues>({resolver: zodResolver(schema)})
+  const schema = type === "login" ? loginSchema : registerSchema;
 
-    const onSubmit = (data : FormValues) => {
-     console.log(data);
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  });
 
-    return(
+  const onSubmit = (data: FormValues) => {
+    console.log(type, data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      {/* SOLO REGISTER */}
+      {type === "register" && (
         <>
-        <div>
-           <form onSubmit={handleSubmit(onSubmit)}>
-             <Input<FormValues>
-              label="Email"
-              name="email"
-              placeholder="Ingrese su Email"
-              register={register}
-              error={errors.email?.message}
-              ></Input>
-
-              <Input<FormValues>
-                label="Contraseña"
-                name="password"
-                placeholder="Ingrese su Contraseña"
-                register={register}
-                error={errors.password?.message}
-                ></Input>
-
-             <Button>Enviar</Button>
-           </form>
-
-        </div>
+          <Input<FormValues>
+            label="Nombre"
+            name="name"
+            placeholder="Ingrese su nombre"
+            register={register}
+            error={errors.name?.message}
+          />
         </>
-    )
-}
+      )}
+
+      {/* SIEMPRE */}
+      <Input<FormValues>
+        label="Email"
+        name="email"
+        placeholder="Ingrese su Email"
+        register={register}
+        error={errors.email?.message}
+      />
+
+      <Input<FormValues>
+        label="Contraseña"
+        name="password"
+        placeholder="Ingrese su Contraseña"
+        register={register}
+        error={errors.password?.message}
+      />
+      {type === "register" && (
+        <Input<FormValues>
+          label="Confirmar contraseña"
+          name="confirmPassword"
+          placeholder="Repita su contraseña"
+          register={register}
+          error={errors.confirmPassword?.message}
+        />
+      )}
+
+      <Button>{type === "login" ? "Iniciar sesión" : "Registrarse"}</Button>
+    </form>
+  );
+};
