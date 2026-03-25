@@ -1,4 +1,5 @@
-import { AuthForm } from "@/app/components/AuthForm"
+import { AuthForm } from "@/components/AuthForm"
+import Link from "next/link"
 
 export default function Page() {
   return(
@@ -8,6 +9,8 @@ export default function Page() {
        <div className="">
         <AuthForm></AuthForm>
        </div>
+       <Link href={"/register"}>
+       <button className="text-center mt-10">Registrarse</button></Link>
     </div>
   </div>
   )

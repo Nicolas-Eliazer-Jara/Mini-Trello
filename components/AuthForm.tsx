@@ -2,9 +2,10 @@
 import { useForm } from "react-hook-form"
 import {Input} from "./Input"
 import { Button } from "./Button"
+import {loginSchema , registerSchema} from "../features/auth/schemas"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 type FormValues = {
-  name?: string
   email: string
   password: string
 }
@@ -14,8 +15,8 @@ type Props = {
 }
 
 export const AuthForm = ({ type }: Props) => {
-
-    const {register , handleSubmit} = useForm<FormValues>()
+    const schema = type === "login" ? loginSchema : registerSchema;
+    const {register , handleSubmit , formState:{errors}} = useForm<FormValues>({resolver: zodResolver(schema)})
 
     const onSubmit = (data : FormValues) => {
      console.log(data);
@@ -26,18 +27,11 @@ export const AuthForm = ({ type }: Props) => {
         <div>
            <form onSubmit={handleSubmit(onSubmit)}>
              <Input<FormValues>
-                label="Name"
-                name="name"
-                type="text"
-                placeholder="Ingrese su Nombre"
-                register={register}
-             ></Input>
-
-             <Input<FormValues>
               label="Email"
               name="email"
               placeholder="Ingrese su Email"
               register={register}
+              error={errors.email?.message}
               ></Input>
 
               <Input<FormValues>
@@ -45,6 +39,7 @@ export const AuthForm = ({ type }: Props) => {
                 name="password"
                 placeholder="Ingrese su Contraseña"
                 register={register}
+                error={errors.password?.message}
                 ></Input>
 
              <Button>Enviar</Button>
