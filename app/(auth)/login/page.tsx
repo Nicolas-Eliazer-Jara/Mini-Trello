@@ -9,9 +9,13 @@ export default function Page() {
         <div>
           <AuthForm type="login"></AuthForm>
         </div>
+
+        <div className="text-center mt-10">
+          <h1>¿No tenés cuenta?</h1>
         <Link href={"/register"}>
-          <button className="text-center mt-10">Registrarse</button>
+          <button className="text-center mt-5">Registrate</button>
         </Link>
+        </div>
       </div>
     </div>
   );
