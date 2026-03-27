@@ -19,17 +19,17 @@ export const Input = <T extends FieldValues>({
 }: Porps<T>) => {
   return (
     <>
-      <div className=" bg-blue-300 py-5 px-10 ">
-        <label className="m-2 ">{label}</label>
+      <div className="  py-2 px-10 ">
+        <label className="m-2 text-[13px]  font-black">{label}</label>
         <input
-          className={`py-2 m-2 w-full placeholder:pl-2 ${
-            error ? "border border-red-500 bg-red-50" : "bg-gray-300"
+          className={`py-2 m-2 w-full placeholder:pl-2 rounded-xs border border-black ${
+            error ? "border border-red-500 " : "bg-white"
           }`}
           type={type}
           placeholder={placeholder}
           {...register(name)}
         ></input>
-        {error && <p className="text-red-600 text-sm m-2">{error}</p>}{" "}
+        {error && <p className="text-red-600 text-sm absolute m-2">{error}</p>}{" "}
       </div>
     </>
   );

@@ -37,7 +37,7 @@ export const AuthForm = ({ type }: Props) => {
       {type === "register" && (
         <>
           <Input<FormValues>
-            label="Nombre"
+            label="Name"
             name="name"
             placeholder="Ingrese su nombre"
             register={register}
@@ -48,7 +48,7 @@ export const AuthForm = ({ type }: Props) => {
 
       {/* SIEMPRE */}
       <Input<FormValues>
-        label="Email"
+        label="Email address"
         name="email"
         placeholder="Ingrese su Email"
         register={register}
@@ -56,7 +56,7 @@ export const AuthForm = ({ type }: Props) => {
       />
 
       <Input<FormValues>
-        label="Contraseña"
+        label="Password"
         name="password"
         placeholder="Ingrese su Contraseña"
         register={register}
@@ -64,7 +64,7 @@ export const AuthForm = ({ type }: Props) => {
       />
       {type === "register" && (
         <Input<FormValues>
-          label="Confirmar contraseña"
+          label="Confirm Password"
           name="confirmPassword"
           placeholder="Repita su contraseña"
           register={register}
