@@ -1,16 +1,23 @@
 type Props = {
   children: React.ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit";
+  className?: string;
 };
 
-export const Button = ({ children }: Props) => {
+export const Button = ({
+  children,
+  onClick,
+  type = "button",
+  className = "",
+}: Props) => {
   return (
-    <div className=" py-5 px-10 ">
-      <button
-        type="submit"
-        className="w-full bg-[#121212] text-white py-2 rounded-xs hover:bg-[#121212dc] transition cursor-pointer active:"
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 transition cursor-pointer ${className}`}
+    >
+      {children}
+    </button>
   );
 };
