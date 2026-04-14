@@ -15,7 +15,7 @@ export const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 transition cursor-pointer ${className}`}
+      className={` px-4 py-2 rounded  transition cursor-pointer ${className}`}
     >
       {children}
     </button>
